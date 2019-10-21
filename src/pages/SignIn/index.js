@@ -9,7 +9,7 @@ import { signInRequest } from '~/store/modules/auth/actions';
 import logo from '~/assets/logo.svg';
 
 const schema = Yup.object().shape({
-  username: Yup.string().required('O email é obrigatório'),
+  username: Yup.string().required('O usuário é obrigatório'),
   password: Yup.string()
     .min(6, 'A senha contem no mínimo 6 caracteres')
     .required('A senha é obrigatória'),
