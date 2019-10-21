@@ -56,7 +56,7 @@ export const Container = styled.div`
     }
 
     span {
-      color: #f64c75;
+      color: #FF4500;
       align-self: flex-start;
       margin: 0 0 10px;
       font-weight: bold;
