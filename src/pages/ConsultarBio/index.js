@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
 import api from '~/services/api';
 import biometria from '~/services/biometria';
 
 import { Container } from './styles';
 
 // import testBio from './test'; // apenas para testes
+
+const schema = Yup.object().shape({
+  template1: Yup.string().required('Entre com a biometria'),
+});
 
 export default function ConsultarBio() {
   const [result, setResult] = useState('');
@@ -28,7 +33,7 @@ export default function ConsultarBio() {
         <strong>Consultar por Biometria</strong>
       </header>
       <h3> Aperte o botão para checar a Biometria e depois em consultar</h3>
-      <Form>
+      <Form schema={schema} onSubmit={consultar}>
         <hr />
 
         <Input
@@ -44,9 +49,7 @@ export default function ConsultarBio() {
         <hr />
         <hr />
         <div>
-          <button type="button" onClick={consultar}>
-            Consultar
-          </button>
+          <button type="submit">Consultar</button>
         </div>
       </Form>
 
