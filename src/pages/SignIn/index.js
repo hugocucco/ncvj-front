@@ -36,7 +36,12 @@ export default function SignIn() {
       <img src={logo} alt="NCVJ" />
 
       <Form schema={schema} onSubmit={handleSubmit}>
-        <Input name="username" type="username" placeholder="Login" />
+        <Input
+          name="username"
+          type="username"
+          placeholder="Login"
+          autoComplete="off"
+        />
         <Input name="password" type="password" placeholder="Senha" />
 
         <button type="submit">{loading ? 'Carregando...' : 'Entrar'}</button>

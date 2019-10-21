@@ -1,21 +1,37 @@
 import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
 import api from '~/services/api';
 
 import { Container } from './styles';
 
+const schema = Yup.object().shape({
+  cpf: Yup.string()
+    .min(11, 'O CPF precisa ter no mínimo 11 dígitos')
+    .required('Digite um CPF válido'),
+});
+
 export default function ConsultarCPF() {
   const [result, setResult] = useState({
-    dados: [],
+    name: '',
+    cpf: '',
+    uf_origem: '',
+    pendencia: '',
+    uf_pendencia: '',
   });
+
+  function handleSubmit(data, { resetForm }) {
+    resetForm();
+  }
 
   const [input, setInput] = useState('');
 
-  async function consultar() {
+  async function consultar(data, { resetForm }) {
     const response = await api.post('consultacpf', {
       cpf: input,
     });
     setResult(response.data);
+    resetForm();
   }
   return (
     <Container>
@@ -23,9 +39,7 @@ export default function ConsultarCPF() {
         <strong>Consultar por CPF</strong>
       </header>
       <h3> Digite o CPF e depois clique em Consultar</h3>
-      <Form onSubmit>
-        <hr />
-
+      <Form schema={schema} onSubmit={consultar}>
         <Input
           name="cpf"
           value={input}
@@ -33,13 +47,24 @@ export default function ConsultarCPF() {
           onInput={e => setInput(e.target.value)}
           autocomplete="off"
         />
+        <button type="submit">Consultar</button>
         <hr />
-        <button type="button" onClick={consultar}>
-          Consultar
-        </button>
       </Form>
+      <h4> Resultado da Busca:</h4>
+      <Form initialData={result} onSubmit={handleSubmit}>
+        <h4>Nome:</h4>
+        <Input name="name" disabled />
+        <h4>CPF:</h4>
+        <Input name="cpf" disabled />
+        <h4>Estado de origem:</h4>
+        <Input name="uf_origem" disabled />
+        <h4>Pendência:</h4>
+        <Input name="pendencia" disabled />
+        <h4>Estado da pendência:</h4>
+        <Input name="uf_pendencia" disabled />
 
-      <textarea>{result}</textarea>
+        <button type="submit">Nova Consulta</button>
+      </Form>
     </Container>
   );
 }
