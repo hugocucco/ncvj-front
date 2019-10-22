@@ -20,8 +20,8 @@ export default function ConsultarCPF() {
     uf_pendencia: '',
   });
 
-  function handleSubmit(data, { resetForm }) {
-    resetForm();
+  function Limpar() {
+    window.location.reload();
   }
 
   const [input, setInput] = useState('');
@@ -51,7 +51,7 @@ export default function ConsultarCPF() {
         <hr />
       </Form>
       <h4> Resultado da Busca:</h4>
-      <Form initialData={result} onSubmit={handleSubmit}>
+      <Form initialData={result}>
         <h4>Nome:</h4>
         <Input name="name" disabled />
         <h4>CPF:</h4>
@@ -62,9 +62,10 @@ export default function ConsultarCPF() {
         <Input name="pendencia" disabled />
         <h4>Estado da pendência:</h4>
         <Input name="uf_pendencia" disabled />
-
-        <button type="submit">Nova Consulta</button>
       </Form>
+      <button type="submit" onClick={Limpar}>
+        Limpar
+      </button>
     </Container>
   );
 }
