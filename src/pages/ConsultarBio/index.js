@@ -40,7 +40,7 @@ export default function ConsultarBio() {
           name="template1"
           placeholder="Template"
           value={result}
-          autocomplete="off"
+          autoComplete="off"
         />
         <hr />
         <button type="button" onClick={returnBiometria}>

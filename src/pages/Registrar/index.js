@@ -15,12 +15,13 @@ const schema = Yup.object().shape({
   cpf: Yup.string()
     .min(11, 'O CPF precisa ter no mínimo 11 dígitos')
     .required('Digite um CPF válido'),
+  uf_origem: Yup.string().required('Insira um estado de origem'),
   template1: Yup.string().required('Entre com a biometria'),
 });
 
 export default function Registrar() {
-  const [result, setResult] = useState('');
   const dispatch = useDispatch();
+  const [result, setResult] = useState('');
 
   async function returnBiometria() {
     const response = await biometria.get('api/public/v1/captura/Enroll/1');
@@ -29,6 +30,7 @@ export default function Registrar() {
 
   function handleSubmit(data) {
     dispatch(registroPessoaRequest(data));
+    // console.tron.log({ name, cpf, uf_origem, template1 });
   }
   return (
     <Container>
@@ -38,9 +40,9 @@ export default function Registrar() {
 
       <Form schema={schema} onSubmit={handleSubmit}>
         <h4> Nome: </h4>
-        <Input name="name" placeholder="Nome completo" autocomplete="off" />
+        <Input name="name" placeholder="Nome completo" autoComplete="off" />
         <h4> CPF: </h4>
-        <Input name="cpf" placeholder="CPF" autocomplete="off" />
+        <Input name="cpf" placeholder="CPF" autoComplete="off" />
         <h4> UF: </h4>
         <Select name="uf_origem" options={estados} />
 

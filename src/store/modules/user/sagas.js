@@ -11,7 +11,11 @@ export function* registroPessoa({ payload }) {
 
     const response = yield call(api.post, 'pessoas', payload.data);
 
-    toast.success('Pessoa cadastrada com sucesso! ');
+    toast.success('Pessoa cadastrada com sucesso!', {
+      onClose() {
+        window.location.reload();
+      },
+    });
 
     yield put(registroPessoaSuccess(response.data));
   } catch (err) {

@@ -45,7 +45,7 @@ export default function ConsultarCPF() {
           value={input}
           placeholder="CPF"
           onInput={e => setInput(e.target.value)}
-          autocomplete="off"
+          autoComplete="off"
         />
         <button type="submit">Consultar</button>
         <hr />
