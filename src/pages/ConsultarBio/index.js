@@ -13,18 +13,28 @@ const schema = Yup.object().shape({
 });
 
 export default function ConsultarBio() {
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState({
+    name: '',
+    cpf: '',
+    uf_origem: '',
+    pendencia: '',
+    uf_pendencia: '',
+  });
+
+  const [input, setInput] = useState('');
 
   async function returnBiometria() {
     const response = await biometria.get('api/public/v1/captura/Capturar/1');
-    setResult(response.data);
+    setInput(response.data);
+    console.tron.log(response.data);
   }
 
   async function consultar() {
     const response = await api.post('consultabio', {
-      template1: result, // apenas para testes
+      template1: input, // apenas para testes
     });
     setResult(response.data);
+    console.tron.log(response.data);
   }
 
   return (
@@ -39,7 +49,7 @@ export default function ConsultarBio() {
         <Input
           name="template1"
           placeholder="Template"
-          value={result}
+          value={input}
           autoComplete="off"
         />
         <hr />
