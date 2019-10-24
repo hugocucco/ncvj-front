@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 import api from '~/services/api';
 
 import { Container } from './styles';
@@ -27,11 +28,16 @@ export default function ConsultarCPF() {
   const [input, setInput] = useState('');
 
   async function consultar(data, { resetForm }) {
-    const response = await api.post('consultacpf', {
-      cpf: input,
-    });
-    setResult(response.data);
-    resetForm();
+    try {
+      const response = await api.post('consultacpf', {
+        cpf: input,
+      });
+      setResult(response.data);
+      resetForm();
+    } catch (err) {
+      toast.error('CPF não encontrado na base de dados.');
+      setResult('');
+    }
   }
   return (
     <Container>
