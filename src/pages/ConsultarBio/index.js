@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 import api from '~/services/api';
 import biometria from '~/services/biometria';
 
@@ -28,11 +29,26 @@ export default function ConsultarBio() {
   }
 
   async function consultar() {
-    const response = await api.post('consultabio', {
-      template1: input, // apenas para testes
-    });
-    setResult(response.data);
-    console.tron.log(response.data);
+    try {
+      const responseBack = await api.get('templates');
+      console.log(responseBack.data);
+      const digitais = responseBack.data;
+
+      const responseApi = await api.post('Verificar', {
+        digitais,
+      });
+      console.log(responseApi.data);
+      const resultado = responseApi.data;
+
+      const pessoa = await api.post('consultabio', {
+        resultado,
+      });
+      console.log(pessoa.data);
+      setResult(pessoa.data);
+    } catch (err) {
+      console.tron.log(err);
+      toast.error('Digital não encontrada na base de dados, tente novamente');
+    }
   }
 
   return (
