@@ -6,8 +6,6 @@ import biometria from '~/services/biometria';
 
 import { Container } from './styles';
 
-// import testBio from './test'; // apenas para testes
-
 const schema = Yup.object().shape({
   template1: Yup.string().required('Entre com a biometria'),
 });
