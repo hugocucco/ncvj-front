@@ -9,7 +9,7 @@ export const Container = styled.div`
   
   header {
     display: flex;
-    align-self: center
+    align-self: center;
     align-items: center;
     padding-bottom: 100px;
 
@@ -23,7 +23,6 @@ export const Container = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
 
     input {
       background: rgba(0, 0, 0, 0.2);
