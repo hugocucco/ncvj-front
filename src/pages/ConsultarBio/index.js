@@ -54,8 +54,8 @@ export default function ConsultarBio() {
       <header>
         <strong>Consultar por Biometria</strong>
       </header>
-      <h3> Aperte o botão para checar a Biometria</h3>
       <Form initialData={result} onSubmit={consultar}>
+        <h3> Aperte o botão para checar a Biometria</h3>
         <hr />
 
         <h4>Nome:</h4>
@@ -69,7 +69,6 @@ export default function ConsultarBio() {
         <h4>Estado da pendência:</h4>
         <Input name="uf_pendencia" disabled />
 
-        <hr />
         <hr />
         <div>
           <button type="submit">Consultar</button>
