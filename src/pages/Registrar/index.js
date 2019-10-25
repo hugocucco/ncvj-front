@@ -51,6 +51,7 @@ export default function Registrar() {
         <h4> Clique no botão para registrar a biometria </h4>
 
         <Input name="template1" placeholder="Template" value={result} />
+        <hr />
         <button type="button" onClick={returnBiometria}>
           Gravar biometria
         </button>
