@@ -35,11 +35,11 @@ export default function ConsultarBio() {
 
       const responseApi = await biometria.post('Verificar', digitais);
       console.tron.log(responseApi.data);
-      const resultado = responseApi.data;
-      console.tron.log(resultado);
+      const template1 = responseApi.data;
+      console.tron.log(template1);
 
       const pessoa = await api.post('consultabio', {
-        resultado,
+        template1,
       });
       console.tron.log(pessoa.data);
       setResult(pessoa.data);
