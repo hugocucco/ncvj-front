@@ -31,19 +31,19 @@ export default function ConsultarBio() {
   async function consultar() {
     try {
       const responseBack = await api.get('templates');
-      console.log(responseBack.data);
+      console.tron.log(responseBack.data);
       const digitais = responseBack.data;
 
-      const responseApi = await api.post('Verificar', {
+      const responseApi = await biometria.post('Verificar', {
         digitais,
       });
-      console.log(responseApi.data);
+      console.tron.log(responseApi.data);
       const resultado = responseApi.data;
 
       const pessoa = await api.post('consultabio', {
         resultado,
       });
-      console.log(pessoa.data);
+      console.tron.log(pessoa.data);
       setResult(pessoa.data);
     } catch (err) {
       console.tron.log(err);
