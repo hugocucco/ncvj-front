@@ -7,7 +7,7 @@ import api from '~/services/api';
 import { Container } from './styles';
 
 const schema = Yup.object().shape({
-  cpf: Yup.string()
+  cpf: Yup.number('O CPF é composto por somente números!')
     .min(11, 'O CPF precisa ter no mínimo 11 dígitos')
     .required('Digite um CPF válido'),
 });
