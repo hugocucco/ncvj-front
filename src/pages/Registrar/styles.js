@@ -13,7 +13,7 @@ export const Container = styled.div`
     display: flex;
     align-self: center;
     align-items: center;
-    padding-bottom: 100px;
+    padding-bottom: 80px;
 
     strong {
       color: #fff;
