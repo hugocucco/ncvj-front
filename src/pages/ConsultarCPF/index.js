@@ -36,44 +36,63 @@ export default function ConsultarCPF() {
       resetForm();
     } catch (err) {
       toast.error('CPF não encontrado na base de dados.');
-      setResult('');
+      setInput('');
     }
   }
+  
+  function ConditionalRender() {
+    if (result.name === '') {
+      return (
+        <>
+          <Form schema={schema} onSubmit={consultar}>
+            <h3> Digite o CPF e depois clique em Consultar</h3>
+            <hr />
+            <Input
+              name="cpf"
+              value={input}
+              placeholder="CPF"
+              onInput={e => setInput(e.target.value)}
+              autoComplete="off"
+            />
+            <hr />
+            <hr />
+            <button type="submit">Consultar</button>
+            <hr />
+          </Form>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <Form initialData={result}>
+          <h3> Resultado da Busca:</h3>
+          <hr />
+          <h4>Nome:</h4>
+          <Input name="name" disabled />
+          <h4>CPF:</h4>
+          <Input name="cpf" disabled />
+          <h4>Estado de origem:</h4>
+          <Input name="uf_origem" disabled />
+          <h4>Pendência:</h4>
+          <Input name="pendencia" disabled />
+          <h4>Estado da pendência:</h4>
+          <Input name="uf_pendencia" disabled />
+          <hr />
+        </Form>
+        <button type="submit" onClick={Limpar}>
+          Nova Consulta
+        </button>
+      </>
+    );
+  }  
   return (
     <Container>
       <header>
         <strong>Consultar por CPF</strong>
       </header>
-      <h3> Digite o CPF e depois clique em Consultar</h3>
-      <Form schema={schema} onSubmit={consultar}>
-        <Input
-          name="cpf"
-          value={input}
-          placeholder="CPF"
-          onInput={e => setInput(e.target.value)}
-          autoComplete="off"
-        />
-        <hr />
-        <hr />    
-        <button type="submit">Consultar</button>
-        <hr />
-      </Form>
-      <h4> Resultado da Busca:</h4>
-      <Form initialData={result}>
-        <h4>Nome:</h4>
-        <Input name="name" disabled />
-        <h4>CPF:</h4>
-        <Input name="cpf" disabled />
-        <h4>Estado de origem:</h4>
-        <Input name="uf_origem" disabled />
-        <h4>Pendência:</h4>
-        <Input name="pendencia" disabled />
-        <h4>Estado da pendência:</h4>
-        <Input name="uf_pendencia" disabled />
-      </Form>
-      <button type="submit" onClick={Limpar}>
-        Limpar
-      </button>
+      
+    {ConditionalRender()}
     </Container>
   );
 }
