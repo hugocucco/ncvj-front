@@ -11,7 +11,7 @@ export const Container = styled.div`
 
   header {
     display: flex;
-    align-self: center
+    align-self: center;
     align-items: center;
     padding-bottom: 100px;
 
