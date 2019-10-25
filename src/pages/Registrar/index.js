@@ -24,7 +24,7 @@ export default function Registrar() {
   const [result, setResult] = useState('');
 
   async function returnBiometria() {
-    const response = await biometria.get('api/public/v1/captura/Enroll/1');
+    const response = await biometria.get('Enroll/1');
     setResult(response.data);
   }
 
