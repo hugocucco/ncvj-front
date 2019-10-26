@@ -22,15 +22,21 @@ const schema = Yup.object().shape({
 export default function Registrar() {
   const dispatch = useDispatch();
   const [result, setResult] = useState('');
+  const [loadingBio, setLoadingBio] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function returnBiometria() {
+    setLoadingBio(true);
     const response = await biometria.get('Enroll/1');
     setResult(response.data);
+    setLoadingBio(false);
   }
 
   function handleSubmit(data) {
+    setLoading(true);
     dispatch(registroPessoaRequest(data));
     // console.tron.log({ name, cpf, uf_origem, template1 });
+    setLoading(false);
   }
   return (
     <Container>
@@ -53,14 +59,17 @@ export default function Registrar() {
         <Input name="template1" placeholder="Template" value={result} />
         <hr />
         <button type="button" onClick={returnBiometria}>
-          Gravar biometria
+          {loadingBio ? 'Registrando...' : 'Gravar Biometria'}
         </button>
 
         <hr />
         <hr />
 
         <div>
-          <button type="submit"> Registrar </button>
+          <button type="submit">
+            {' '}
+            {loading ? 'Carregando...' : 'Registrar'}{' '}
+          </button>
         </div>
       </Form>
     </Container>
