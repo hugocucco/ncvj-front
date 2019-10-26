@@ -26,7 +26,7 @@ export const Container = styled.div`
     flex-direction: column;
 
     input {
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.4);
       border: 0;
       border-radius: 4px;
       height: 44px;
@@ -40,7 +40,7 @@ export const Container = styled.div`
     }
 
     select {
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.4);
       border: 0;
       border-radius: 4px;
       height: 44px;
