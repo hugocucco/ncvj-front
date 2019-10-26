@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: 80px auto;
   display: flex;
   flex-direction: column;
-  
+
   header {
     display: flex;
     align-self: center;
@@ -56,7 +56,7 @@ export const Container = styled.div`
       width: 200px;
       margin: 5px 200px 0;
       height: 44px;
-      background: #32CD32;
+      background: #32cd32;
       font-weight: bold;
       color: #fff;
       border: 0;
@@ -86,5 +86,4 @@ export const Container = styled.div`
       background: ${darken(0.2, '#ff4500')};
     }
   }
-  
 `;

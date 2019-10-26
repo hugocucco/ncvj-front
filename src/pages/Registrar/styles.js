@@ -5,7 +5,6 @@ export const Container = styled.div`
   max-width: 600px;
   margin: 80px auto;
 
-
   display: flex;
   flex-direction: column;
 
@@ -55,7 +54,7 @@ export const Container = styled.div`
     }
 
     span {
-      color: #FF4500;
+      color: #ff4500;
       align-self: flex-start;
       margin: 0 0 10px;
       font-weight: bold;
@@ -90,14 +89,14 @@ export const Container = styled.div`
         width: 200px;
         margin: 5px 200px 0;
         height: 44px;
-        background: #32CD32;
+        background: #32cd32;
         font-weight: bold;
         color: #fff;
         border: 0;
         border-radius: 4px;
         font-size: 16px;
         transition: background 0.3s;
-    
+
         &:hover {
           background: ${darken(0.2, '#32CD32')};
         }

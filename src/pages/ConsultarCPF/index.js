@@ -39,7 +39,6 @@ export default function ConsultarCPF() {
       setInput('');
     }
   }
-  
   function ConditionalRender() {
     if (result.name === '') {
       return (
@@ -85,14 +84,13 @@ export default function ConsultarCPF() {
         </button>
       </>
     );
-  }  
+  }
   return (
     <Container>
       <header>
         <strong>Consultar por CPF</strong>
       </header>
-      
-    {ConditionalRender()}
+      {ConditionalRender()}
     </Container>
   );
 }
