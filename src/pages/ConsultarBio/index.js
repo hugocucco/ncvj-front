@@ -7,6 +7,8 @@ import biometria from '~/services/biometria';
 import { Container } from './styles';
 
 export default function ConsultarBio() {
+  const [loading, setLoading] = useState(false);
+
   const [result, setResult] = useState({
     name: '',
     cpf: '',
@@ -17,6 +19,7 @@ export default function ConsultarBio() {
 
   async function consultar() {
     try {
+      setLoading(true);
       const responseBack = await api.get('templates');
       const digitais = responseBack.data;
 
@@ -30,9 +33,11 @@ export default function ConsultarBio() {
       });
       console.tron.log(pessoa.data);
       setResult(pessoa.data);
+      setLoading(false);
     } catch (err) {
       console.tron.log(err);
       toast.error('Digital não encontrada na base de dados, tente novamente');
+      setLoading(false);
     }
   }
 
@@ -58,7 +63,9 @@ export default function ConsultarBio() {
 
         <hr />
         <div>
-          <button type="submit">Consultar</button>
+          <button type="submit">
+            {loading ? 'Carregando...' : 'Consultar'}
+          </button>
         </div>
       </Form>
 
