@@ -35,7 +35,6 @@ export default function Registrar() {
   function handleSubmit(data) {
     setLoading(true);
     dispatch(registroPessoaRequest(data));
-    // console.tron.log({ name, cpf, uf_origem, template1 });
     setLoading(false);
   }
   return (
