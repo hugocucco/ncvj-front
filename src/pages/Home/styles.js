@@ -29,7 +29,7 @@ hr {
 }
 
   a {
-    width: 195px;
+    width: 235px;
     display: flex;
     justify-content: center;
     align-self: center
