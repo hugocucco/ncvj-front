@@ -23,7 +23,15 @@ export default function ConsultarBio() {
       const responseBack = await api.get('templates');
       const digitais = responseBack.data;
 
-      const responseApi = await biometria.post('Verificar', digitais);
+      const responseApi = await biometria.post('Verificar', digitais, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Authorization',
+          'Access-Control-Allow-Methods':
+            'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+      });
       // console.tron.log(responseApi.data);
       const template1 = responseApi.data;
       // console.tron.log(template1);
