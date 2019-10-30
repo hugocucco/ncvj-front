@@ -25,6 +25,12 @@ export default function ConsultarBio() {
 
       const responseApi = await biometria.post('Verificar', digitais);
       // console.tron.log(responseApi.data);
+
+      if (responseApi.data === 'Digital não encontrada') {
+        setLoading(false);
+        toast.error('Digital não encontrada na base de dados, tente novamente');
+      }
+
       const template1 = responseApi.data;
       // console.tron.log(template1);
 
@@ -36,7 +42,7 @@ export default function ConsultarBio() {
       setLoading(false);
     } catch (err) {
       // console.tron.log(err);
-      toast.error('Digital não encontrada na base de dados, tente novamente');
+      toast.error('Digital não encontrada');
       setLoading(false);
     }
   }
