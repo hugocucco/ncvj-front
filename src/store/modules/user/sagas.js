@@ -19,7 +19,11 @@ export function* registroPessoa({ payload }) {
 
     yield put(registroPessoaSuccess(response.data));
   } catch (err) {
-    toast.err('Falha no cadastramento');
+    toast.error('CPF já cadastrado no banco de dados!', {
+      onClose() {
+        window.location.reload();
+      },
+    });
     yield put(registroPessoaFailure());
   }
 }
