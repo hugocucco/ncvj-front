@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
+import LoadingOverlay from 'react-loading-overlay';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
 
@@ -13,6 +14,8 @@ const schema = Yup.object().shape({
 });
 
 export default function ConsultarCPF() {
+  const [loading, setLoading] = useState(false);
+
   const [result, setResult] = useState({
     name: '',
     cpf: '',
@@ -29,14 +32,17 @@ export default function ConsultarCPF() {
 
   async function consultar(data, { resetForm }) {
     try {
+      setLoading(true);
       const response = await api.post('consultacpf', {
         cpf: input,
       });
       setResult(response.data);
+      setLoading(false);
       resetForm();
     } catch (err) {
       toast.error('CPF não encontrado na base de dados.');
       setInput('');
+      setLoading(false);
     }
   }
   function ConditionalRender() {
@@ -86,11 +92,23 @@ export default function ConsultarCPF() {
     );
   }
   return (
-    <Container>
-      <header>
-        <strong>Consultar por CPF</strong>
-      </header>
-      {ConditionalRender()}
-    </Container>
+    <LoadingOverlay
+      active={loading}
+      styles={{
+        overlay: base => ({
+          ...base,
+          background: 'rgb(0, 0, 0) transparent',
+        }),
+      }}
+      spinner
+      text="Buscando CPF..."
+    >
+      <Container>
+        <header>
+          <strong>Consultar por CPF</strong>
+        </header>
+        {ConditionalRender()}
+      </Container>
+    </LoadingOverlay>
   );
 }

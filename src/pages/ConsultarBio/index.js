@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
+import LoadingOverlay from 'react-loading-overlay';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
 import biometria from '~/services/biometria';
@@ -24,7 +25,6 @@ export default function ConsultarBio() {
       const digitais = responseBack.data;
 
       const responseApi = await biometria.post('Verificar', digitais);
-      // console.tron.log(responseApi.data);
 
       if (responseApi.data === 'Digital não encontrada') {
         setLoading(false);
@@ -32,50 +32,57 @@ export default function ConsultarBio() {
       }
 
       const template1 = responseApi.data;
-      // console.tron.log(template1);
 
       const pessoa = await api.post('consultabio', {
         template1,
       });
-      // console.tron.log(pessoa.data);
       setResult(pessoa.data);
       setLoading(false);
     } catch (err) {
-      // console.tron.log(err);
       toast.error('Digital não encontrada');
       setLoading(false);
     }
   }
 
   return (
-    <Container>
-      <header>
-        <strong>Consultar por Biometria</strong>
-      </header>
-      <Form initialData={result} onSubmit={consultar}>
-        <h3> Aperte o botão para checar a Biometria</h3>
-        <hr />
+    <LoadingOverlay
+      active={loading}
+      styles={{
+        overlay: base => ({
+          ...base,
+          background: 'rgb(0, 0, 0) transparent',
+        }),
+      }}
+      spinner
+      text="Aguardando biometria..."
+    >
+      <Container>
+        <header>
+          <strong>Consultar por Biometria</strong>
+        </header>
+        <Form initialData={result} onSubmit={consultar}>
+          <h3> Aperte o botão para checar a Biometria</h3>
+          <hr />
 
-        <h4>Nome:</h4>
-        <Input name="name" disabled />
-        <h4>CPF:</h4>
-        <Input name="cpf" disabled />
-        <h4>Estado de origem:</h4>
-        <Input name="uf_origem" disabled />
-        <h4>Pendência:</h4>
-        <Input name="pendencia" disabled />
-        <h4>Estado da pendência:</h4>
-        <Input name="uf_pendencia" disabled />
+          <h4>Nome:</h4>
+          <Input name="name" disabled />
+          <h4>CPF:</h4>
+          <Input name="cpf" disabled />
+          <h4>Estado de origem:</h4>
+          <Input name="uf_origem" disabled />
+          <h4>Pendência:</h4>
+          <Input name="pendencia" disabled />
+          <h4>Estado da pendência:</h4>
+          <Input name="uf_pendencia" disabled />
 
-        <hr />
-        <div>
-          <button type="submit">
-            {loading ? 'Carregando...' : 'Consultar'}
-          </button>
-        </div>
-      </Form>
+          <hr />
+          <div>
+            <button type="submit">Consultar</button>
+          </div>
+        </Form>
 
-      <span value={result} />
-    </Container>
+        <span value={result} />
+      </Container>
+    </LoadingOverlay>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Select } from '@rocketseat/unform';
+import LoadingOverlay from 'react-loading-overlay';
 import * as Yup from 'yup';
 import biometria from '~/services/biometria';
 
@@ -38,39 +39,51 @@ export default function Registrar() {
     setLoading(false);
   }
   return (
-    <Container>
-      <header>
-        <strong>Registrar Pessoas</strong>
-      </header>
+    <LoadingOverlay
+      active={loadingBio}
+      styles={{
+        overlay: base => ({
+          ...base,
+          background: 'rgb(0, 0, 0) transparent',
+        }),
+      }}
+      spinner
+      text="Aguardando biometria..."
+    >
+      <Container>
+        <header>
+          <strong>Registrar Pessoas</strong>
+        </header>
 
-      <Form schema={schema} onSubmit={handleSubmit}>
-        <h4> Nome: </h4>
-        <Input name="name" placeholder="Nome completo" autoComplete="off" />
-        <h4> CPF: </h4>
-        <Input name="cpf" placeholder="CPF" autoComplete="off" />
-        <h4> UF: </h4>
-        <Select name="uf_origem" options={estados} />
+        <Form schema={schema} onSubmit={handleSubmit}>
+          <h4> Nome: </h4>
+          <Input name="name" placeholder="Nome completo" autoComplete="off" />
+          <h4> CPF: </h4>
+          <Input name="cpf" placeholder="CPF" autoComplete="off" />
+          <h4> UF: </h4>
+          <Select name="uf_origem" options={estados} />
 
-        <hr />
+          <hr />
 
-        <h4> Clique no botão para registrar a biometria </h4>
+          <h4> Clique no botão para registrar a biometria </h4>
 
-        <Input name="template1" placeholder="Template" value={result} />
-        <hr />
-        <button type="button" onClick={returnBiometria}>
-          {loadingBio ? 'Registrando...' : 'Gravar Biometria'}
-        </button>
-
-        <hr />
-        <hr />
-
-        <div>
-          <button type="submit">
-            {' '}
-            {loading ? 'Carregando...' : 'Registrar'}{' '}
+          <Input name="template1" placeholder="Template" value={result} />
+          <hr />
+          <button type="button" onClick={returnBiometria}>
+            Gravar Biometria
           </button>
-        </div>
-      </Form>
-    </Container>
+
+          <hr />
+          <hr />
+
+          <div>
+            <button type="submit">
+              {' '}
+              {loading ? 'Enviando...' : 'Registrar'}{' '}
+            </button>
+          </div>
+        </Form>
+      </Container>
+    </LoadingOverlay>
   );
 }
