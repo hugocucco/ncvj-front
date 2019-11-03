@@ -3,13 +3,14 @@ import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import LoadingOverlay from 'react-loading-overlay';
 import { toast } from 'react-toastify';
+import { cpfMask } from '../_layouts/default/mask';
 import api from '~/services/api';
 
 import { Container } from './styles';
 
 const schema = Yup.object().shape({
-  cpf: Yup.number('O CPF é composto por somente números!')
-    .min(11, 'O CPF precisa ter 11 dígitos')
+  cpf: Yup.string()
+    .min(14, 'O CPF precisa ter 11 dígitos')
     .required('Digite um CPF válido'),
 });
 
@@ -24,11 +25,12 @@ export default function ConsultarCPF() {
     uf_pendencia: '',
   });
 
+  const [input, setInput] = useState('');
+  const [cpf, setCPF] = useState('');
+
   function Limpar() {
     window.location.reload();
   }
-
-  const [input, setInput] = useState('');
 
   async function consultar(data, { resetForm }) {
     try {
@@ -45,6 +47,7 @@ export default function ConsultarCPF() {
       setLoading(false);
     }
   }
+
   function ConditionalRender() {
     if (result.name === '') {
       return (
@@ -54,10 +57,11 @@ export default function ConsultarCPF() {
             <hr />
             <Input
               name="cpf"
-              value={input}
+              value={(input, cpfMask(cpf))}
               placeholder="CPF"
               onInput={e => setInput(e.target.value)}
               autoComplete="off"
+              onChange={e => setCPF(e.target.value)}
             />
             <hr />
             <hr />
