@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { Form, Input, Select } from '@rocketseat/unform';
 import LoadingOverlay from 'react-loading-overlay';
 import * as Yup from 'yup';
+import { isCPF } from 'brazilian-values';
+import { toast } from 'react-toastify';
 import { cpfMask } from '../_layouts/default/mask';
 
 import biometria from '~/services/biometria';
@@ -14,7 +16,9 @@ import { Container } from './styles';
 import estados from '~/pages/_layouts/default/estados';
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('Digite um nome'),
+  name: Yup.string()
+    .min(4, 'O nome precisa ter no minimo 4 letras.')
+    .required('Digite um nome'),
   cpf: Yup.string()
     .min(14, 'O CPF precisa ter no mínimo 11 dígitos')
     .required('Digite um CPF válido'),
@@ -38,9 +42,15 @@ export default function Registrar() {
 
   function handleSubmit(data) {
     setLoading(true);
-    dispatch(registroPessoaRequest(data));
-    setLoading(false);
+    if (!isCPF(cpf)) {
+      toast.error('CPF inválido!');
+      setLoading(false);
+    } else {
+      dispatch(registroPessoaRequest(data));
+      setLoading(false);
+    }
   }
+
   return (
     <LoadingOverlay
       active={loadingBio}
@@ -71,20 +81,15 @@ export default function Registrar() {
           />
           <h4> UF: </h4>
           <Select name="uf_origem" options={estados} />
-
           <hr />
-
           <h4> Clique no botão para registrar a biometria </h4>
-
-          <Input name="template1" placeholder="Template" value={result} />
+          <Input name="template1" placeholder="Biometria" value={result} />
           <hr />
           <button type="button" onClick={returnBiometria}>
             Gravar Biometria
           </button>
-
           <hr />
           <hr />
-
           <div>
             <button type="submit">
               {' '}
