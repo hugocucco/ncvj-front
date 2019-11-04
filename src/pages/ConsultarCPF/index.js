@@ -3,6 +3,7 @@ import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import LoadingOverlay from 'react-loading-overlay';
 import { toast } from 'react-toastify';
+import { isCPF } from 'brazilian-values';
 import { cpfMask } from '../_layouts/default/mask';
 import api from '~/services/api';
 
@@ -35,12 +36,17 @@ export default function ConsultarCPF() {
   async function consultar(data, { resetForm }) {
     try {
       setLoading(true);
-      const response = await api.post('consultacpf', {
-        cpf: input,
-      });
-      setResult(response.data);
-      setLoading(false);
-      resetForm();
+      if (!isCPF(cpf)) {
+        toast.error('CPF inválido!');
+        setLoading(false);
+      } else {
+        const response = await api.post('consultacpf', {
+          cpf: input,
+        });
+        setResult(response.data);
+        setLoading(false);
+        resetForm();
+      }
     } catch (err) {
       toast.error('CPF não encontrado na base de dados.');
       setInput('');
